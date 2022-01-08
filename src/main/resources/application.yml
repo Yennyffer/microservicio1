@@ -1,0 +1,11 @@
+server:
+    port: 8081
+spring:
+    data:
+        mongodb:
+            database: microservicio1
+            host: localhost
+           
+
+           
+            
