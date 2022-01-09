@@ -2,45 +2,44 @@ package com.nttdata.bootcamp.microservicio1.business.impl;
 
 import com.nttdata.bootcamp.microservicio1.business.CustomerService;
 import com.nttdata.bootcamp.microservicio1.model.Customer;
-import com.nttdata.bootcamp.microservicio1.model.Address;
+import com.nttdata.bootcamp.microservicio1.model.dto.CustomerDto;
 import com.nttdata.bootcamp.microservicio1.repository.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
+
+/**
+ * [Description]. <br/>
+ * <b>Class</b>: {@link CustomerServiceImpl}<br/>
+ * <b>Copyright</b>: &Copy; 2022 NTT DATA SAC. <br/>
+ * <b>Company</b>: NTT DATA SAC. <br/>
+ *
+ * @author Yennyffer Lizana <br/>
+ * <u>Developed by</u>: <br/>
+ * <ul>
+ * <li>{USERNAME}. (acronym) From (EVE)</li>
+ * </ul>
+ * <u>Changes</u>:<br/>
+ * <ul>
+ * <li>ene. 06, 2022 (acronym) Creation class.</li>
+ * </ul>
+ * @version 1.0
+ */
 
 @Service
 public class CustomerServiceImpl implements CustomerService {
 
   @Autowired
   private CustomerRepository customerRepository;
-
+  
+  private String typeCustomer;
+  
 
   @Override
   public Mono<Customer> create(Customer customer) {
-
-    /*if(!customer.getId().isBlank()){
-      return webClientUser.get()
-      .uri(uriBuilder -> uriBuilder
-          .queryParam("username", customer.getUsername())
-          .build())
-          .retrieve()
-          .bodyToFlux(User.class)
-          .next()
-          .flatMap(user -> {
-            Address address = new Address();
-            address.setName(user.getAddress().getName());
-            address.setNumber(user.getAddress().getNumber());
-            address.setProvince(user.getAddress().getProvince());
-            address.setDistrict(user.getAddress().getDistrict());
-            address.setDepartment(user.getAddress().getDepartment());
-            customer.setAddress(address);
-            customer.setEmail(user.getEmail());
-            customer.setFirstname(user.getFirstName());
-            return customerRepository.save(customer);
-          });
-    }*/
-
+	customer.setHttpStatus(HttpStatus.OK);
     return customerRepository.save(customer);
   }
 
@@ -56,7 +55,7 @@ public class CustomerServiceImpl implements CustomerService {
 
   @Override
   public Mono<Customer> update(Customer customer) {
-    return null;
+    return customerRepository.save(customer);
   }
 
   @Override
@@ -74,6 +73,11 @@ public class CustomerServiceImpl implements CustomerService {
         .findById(customerId)
         .flatMap(p -> customerRepository.deleteById(p.getId()).thenReturn(p));
 
+  }
+  
+  @Override
+  public Flux<Customer> findCustomerByCustomerType_Description(String description) {
+    return customerRepository.findCustomerByCustomerType_Description(description);
   }
 
 }

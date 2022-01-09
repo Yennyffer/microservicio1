@@ -9,6 +9,25 @@ import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.http.HttpStatus;
+
+/**
+ * [Description]. <br/>
+ * <b>Class</b>: {@link Customer}<br/>
+ * <b>Copyright</b>: &Copy; 2022 NTT DATA SAC. <br/>
+ * <b>Company</b>: NTT DATA SAC. <br/>
+ *
+ * @author Yennyffer Lizana <br/>
+ * <u>Developed by</u>: <br/>
+ * <ul>
+ * <li>{USERNAME}. (acronym) From (EVE)</li>
+ * </ul>
+ * <u>Changes</u>:<br/>
+ * <ul>
+ * <li>ene. 07, 2022 (acronym) Creation class.</li>
+ * </ul>
+ * @version 1.0
+ */
 
 @Getter
 @Setter
@@ -27,9 +46,12 @@ public class Customer {
     private Address address;
     private String telephone;
     private Date dateBirth;
-    private char sex;
+    private char gender;
     private boolean isActive;
+    private String numberDocumentIdentity;
+    private TypeDocumentIdentity typeDocumentIdentity; 
     private CustomerType customerType;
-    private DocumentIdentity documentIdentity;
-    private String username;
+    private HttpStatus httpStatus;
+	private String message;
+    
 }

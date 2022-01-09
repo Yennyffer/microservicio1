@@ -5,7 +5,8 @@ spring:
         mongodb:
             database: microservicio1
             host: localhost
-           
+    
+        
 
            
             

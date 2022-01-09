@@ -2,7 +2,6 @@ package com.nttdata.bootcamp.microservicio1.expose;
 
 import com.nttdata.bootcamp.microservicio1.model.Customer;
 import com.nttdata.bootcamp.microservicio1.business.CustomerService;
-import com.nttdata.bootcamp.microservicio1.model.dto.User;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -14,11 +13,28 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
-import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
+import reactor.core.publisher.Flux;
+
+/**
+ * [Description]. <br/>
+ * <b>Class</b>: {@link CustomerController}<br/>
+ * <b>Copyright</b>: &Copy; 2022 NTT DATA SAC. <br/>
+ * <b>Company</b>: NTT DATA SAC. <br/>
+ *
+ * @author Yennyffer Lizana <br/>
+ * <u>Developed by</u>: <br/>
+ * <ul>
+ * <li>{USERNAME}. (acronym) From (EVE)</li>
+ * </ul>
+ * <u>Changes</u>:<br/>
+ * <ul>
+ * <li>ene. 07, 2022 (acronym) Creation class.</li>
+ * </ul>
+ * @version 1.0
+ */
 
 @RestController
 @Slf4j
@@ -33,16 +49,23 @@ public class CustomerController {
     log.info("byId>>>>>");
     return customerService.findById(id);
   }
+  
+ 
+  @GetMapping("/api/customers-all")
+  public Flux<Customer> findAll() {
+    log.info("findAll>>>>>");
 
-
-  @PostMapping("/api/customers")
+    return customerService.findAll();
+  }
+  
+  @PostMapping("/api/customers/create")
   @ResponseStatus(HttpStatus.CREATED)
   public Mono<Customer> create(@RequestBody Customer customer) {
     log.info("create>>>>>");
     return customerService.create(customer);
   }
 
-  @PutMapping("/api/customers")
+  @PutMapping("/api/customers/update")
   public Mono<ResponseEntity<Customer>> update(@RequestBody Customer customer) {
     log.info("update>>>>>");
     return customerService.update(customer)
