@@ -3,7 +3,7 @@ server:
 spring:
     data:
         mongodb:
-            database: microservicio1
+            database: dbproyecto01
             host: localhost
     
         
