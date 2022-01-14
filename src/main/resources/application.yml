@@ -5,8 +5,3 @@ spring:
         mongodb:
             database: dbproyecto01
             host: localhost
-    
-        
-
-           
-            

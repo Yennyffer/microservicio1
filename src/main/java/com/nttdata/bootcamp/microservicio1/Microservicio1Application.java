@@ -21,7 +21,7 @@ import org.springframework.data.mongodb.repository.config.EnableReactiveMongoRep
  * </ul>
  * @version 1.0
  */
-
+//@EnableEurekaClient
 @SpringBootApplication
 @EnableReactiveMongoRepositories
 public class Microservicio1Application {

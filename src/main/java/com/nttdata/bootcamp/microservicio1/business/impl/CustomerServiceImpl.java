@@ -34,8 +34,6 @@ public class CustomerServiceImpl implements CustomerService {
   @Autowired
   private CustomerRepository customerRepository;
   
-  private String typeCustomer;
-  
 
   @Override
   public Mono<Customer> create(Customer customer) {

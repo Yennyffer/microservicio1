@@ -44,28 +44,28 @@ public class CustomerController {
   private CustomerService customerService;
 
 
-  @GetMapping("/api/customers/{id}")
+  @GetMapping("/api/v1/customers/{id}")
   public Mono<Customer> byId(@PathVariable("id") String id) {
     log.info("byId>>>>>");
     return customerService.findById(id);
   }
   
  
-  @GetMapping("/api/customers-all")
+  @GetMapping("/api/v1/customers-all")
   public Flux<Customer> findAll() {
     log.info("findAll>>>>>");
 
     return customerService.findAll();
   }
   
-  @PostMapping("/api/customers/create")
+  @PostMapping("/api/v1/customers/create")
   @ResponseStatus(HttpStatus.CREATED)
   public Mono<Customer> create(@RequestBody Customer customer) {
     log.info("create>>>>>");
     return customerService.create(customer);
   }
 
-  @PutMapping("/api/customers/update")
+  @PutMapping("/api/v1/customers/update")
   public Mono<ResponseEntity<Customer>> update(@RequestBody Customer customer) {
     log.info("update>>>>>");
     return customerService.update(customer)
@@ -73,7 +73,7 @@ public class CustomerController {
         .switchIfEmpty(Mono.just(ResponseEntity.notFound().build()));
   }
 
-  @PatchMapping("/api/customers")
+  @PatchMapping("/api/v1/customers")
   public Mono<ResponseEntity<Customer>> change(@RequestBody Customer customer) {
     log.info("change>>>>>");
     return customerService.change(customer)
@@ -81,7 +81,7 @@ public class CustomerController {
         .switchIfEmpty(Mono.just(ResponseEntity.notFound().build()));
   }
 
-  @DeleteMapping("/api/customers/{id}")
+  @DeleteMapping("/api/v1/customers/{id}")
   public Mono<ResponseEntity<Customer>> delete(@PathVariable("id") String id) {
     log.info("delete>>>>>");
     return customerService.remove(id)
