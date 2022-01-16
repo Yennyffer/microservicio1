@@ -20,7 +20,7 @@ import org.springframework.http.HttpStatus;
  * @author Yennyffer Lizana <br/>
  * <u>Developed by</u>: <br/>
  * <ul>
- * <li>{USERNAME}. (acronym) From (EVE)</li>
+ * <li>{USERNAME}. (acronym) From (YEN)</li>
  * </ul>
  * <u>Changes</u>:<br/>
  * <ul>
@@ -53,5 +53,5 @@ public class Customer {
     private CustomerType customerType;
     private HttpStatus httpStatus;
 	private String message;
-    
+	private CustomerProfile customerProfile;
 }

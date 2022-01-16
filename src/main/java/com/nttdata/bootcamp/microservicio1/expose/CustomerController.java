@@ -27,7 +27,7 @@ import reactor.core.publisher.Flux;
  * @author Yennyffer Lizana <br/>
  * <u>Developed by</u>: <br/>
  * <ul>
- * <li>{USERNAME}. (acronym) From (EVE)</li>
+ * <li>{USERNAME}. (acronym) From (YEN)</li>
  * </ul>
  * <u>Changes</u>:<br/>
  * <ul>
@@ -46,28 +46,28 @@ public class CustomerController {
 
   @GetMapping("/api/v1/customers/{id}")
   public Mono<Customer> byId(@PathVariable("id") String id) {
-    log.info("byId>>>>>");
+    log.info("Búsqueda de cliente por id:", id);
     return customerService.findById(id);
   }
   
  
   @GetMapping("/api/v1/customers-all")
   public Flux<Customer> findAll() {
-    log.info("findAll>>>>>");
+    log.info("Obtener todas los clientes.");
 
     return customerService.findAll();
   }
   
-  @PostMapping("/api/v1/customers/create")
+  @PostMapping("/api/v1/customers/")
   @ResponseStatus(HttpStatus.CREATED)
   public Mono<Customer> create(@RequestBody Customer customer) {
-    log.info("create>>>>>");
+    log.info("Creacion de un cliente");
     return customerService.create(customer);
   }
 
-  @PutMapping("/api/v1/customers/update")
+  @PutMapping("/api/v1/customers/")
   public Mono<ResponseEntity<Customer>> update(@RequestBody Customer customer) {
-    log.info("update>>>>>");
+    log.info("Actualizacion de un cliente.>");
     return customerService.update(customer)
         .flatMap(customerUpdate -> Mono.just(ResponseEntity.ok(customerUpdate)))
         .switchIfEmpty(Mono.just(ResponseEntity.notFound().build()));
@@ -83,9 +83,10 @@ public class CustomerController {
 
   @DeleteMapping("/api/v1/customers/{id}")
   public Mono<ResponseEntity<Customer>> delete(@PathVariable("id") String id) {
-    log.info("delete>>>>>");
+    log.info("Eliminacion de un ciente, id:", id);
     return customerService.remove(id)
         .flatMap(customer -> Mono.just(ResponseEntity.ok(customer)))
         .switchIfEmpty(Mono.just(ResponseEntity.notFound().build()));
   }
+  
 }

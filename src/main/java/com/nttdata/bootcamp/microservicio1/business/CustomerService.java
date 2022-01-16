@@ -13,7 +13,7 @@ import reactor.core.publisher.Mono;
  * @author Yennyffer Lizana <br/>
  * <u>Developed by</u>: <br/>
  * <ul>
- * <li>{USERNAME}. (acronym) From (EVE)</li>
+ * <li>{USERNAME}. (acronym) From (YEN)</li>
  * </ul>
  * <u>Changes</u>:<br/>
  * <ul>
@@ -35,8 +35,7 @@ public interface CustomerService {
     Mono<Customer> change(Customer customer);
   
     Mono<Customer> remove(String customerId);
-    
-    Flux<Customer> findCustomerByCustomerType_Description(String description);
+ 
   
   }
   

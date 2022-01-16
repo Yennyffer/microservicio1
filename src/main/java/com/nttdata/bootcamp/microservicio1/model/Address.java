@@ -14,7 +14,7 @@ import lombok.Setter;
  * @author Yennyffer Lizana <br/>
  * <u>Developed by</u>: <br/>
  * <ul>
- * <li>{USERNAME}. (acronym) From (EVE)</li>
+ * <li>{USERNAME}. (acronym) From (YEN)</li>
  * </ul>
  * <u>Changes</u>:<br/>
  * <ul>

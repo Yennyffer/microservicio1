@@ -19,7 +19,7 @@ import reactor.core.publisher.Mono;
  * @author Yennyffer Lizana <br/>
  * <u>Developed by</u>: <br/>
  * <ul>
- * <li>{USERNAME}. (acronym) From (EVE)</li>
+ * <li>{USERNAME}. (acronym) From (YEN)</li>
  * </ul>
  * <u>Changes</u>:<br/>
  * <ul>
@@ -72,10 +72,15 @@ public class CustomerServiceImpl implements CustomerService {
         .flatMap(p -> customerRepository.deleteById(p.getId()).thenReturn(p));
 
   }
-  
-  @Override
-  public Flux<Customer> findCustomerByCustomerType_Description(String description) {
-    return customerRepository.findCustomerByCustomerType_Description(description);
-  }
+
+	/*public Mono<Customer> findCustomerByCustomerType_Id(String id) {
+		
+		return customerRepository.findCustomerByCustomerType_Id(id);
+	}
+	
+	public Mono<Customer> findCustomerByCustomerProfile_Id(String id) {
+
+		return customerRepository.findCustomerByCustomerProfile_Id(id);
+	} */
 
 }

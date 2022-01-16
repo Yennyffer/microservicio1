@@ -4,6 +4,7 @@ import com.nttdata.bootcamp.microservicio1.model.Customer;
 import org.springframework.data.mongodb.repository.ReactiveMongoRepository;
 import org.springframework.stereotype.Repository;
 import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 /**
  * [Description]. <br/>
@@ -14,7 +15,7 @@ import reactor.core.publisher.Flux;
  * @author Yennyffer Lizana <br/>
  * <u>Developed by</u>: <br/>
  * <ul>
- * <li>{USERNAME}. (acronym) From (EVE)</li>
+ * <li>{USERNAME}. (acronym) From (YEN)</li>
  * </ul>
  * <u>Changes</u>:<br/>
  * <ul>
@@ -27,6 +28,5 @@ import reactor.core.publisher.Flux;
 public interface CustomerRepository 
     extends ReactiveMongoRepository<Customer,String> {
 
-    //Flux<Customer> findCustomerByIdentityDocument_Number(String number);
-    Flux<Customer> findCustomerByCustomerType_Description(String description);
+
 }

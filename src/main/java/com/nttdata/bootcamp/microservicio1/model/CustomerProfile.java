@@ -7,7 +7,7 @@ import lombok.Setter;
 
 /**
  * [Description]. <br/>
- * <b>Class</b>: {@link TypeDocumentIdentity}<br/>
+ * <b>Class</b>: {@link CustomerProfile}<br/>
  * <b>Copyright</b>: &Copy; 2022 NTT DATA SAC. <br/>
  * <b>Company</b>: NTT DATA SAC. <br/>
  *
@@ -18,7 +18,7 @@ import lombok.Setter;
  * </ul>
  * <u>Changes</u>:<br/>
  * <ul>
- * <li>ene. 07, 2022 (acronym) Creation class.</li>
+ * <li>ene. 16, 2022 (acronym) Creation class.</li>
  * </ul>
  * @version 1.0
  */
@@ -27,11 +27,9 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-
-public class TypeDocumentIdentity {
-    
-    private String codigo;
-    private String description;
-    private boolean isActive;
-
+public class CustomerProfile {
+	
+	private String codigo;
+    private String description;	
+    private boolean status;
 }
