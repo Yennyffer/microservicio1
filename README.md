@@ -14,8 +14,10 @@ Coverage	Coverage
 Duplicated Lines	Duplicated Lines (%)
 Technical Debt	Technical Debt
 Metric	Status
-lineas de codigo	https://sonarcloud.io/api/project_badges/measure?project=Yennyffer_microservicio1&metric=ncloc
+lineas de codigo	![image](https://sonarcloud.io/api/project_badges/measure?project=Yennyffer_microservicio1&metric=ncloc)
 	
+	![image](https://user-images.githubusercontent.com/56143446/150027638-ec006e80-cec8-45f8-a4dc-a101e78486d2.png)
+
 	
 	
 	
