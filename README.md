@@ -16,13 +16,15 @@ Technical Debt	Technical Debt
 Metric	Status
 lineas de codigo	![image](https://sonarcloud.io/api/project_badges/measure?project=Yennyffer_microservicio1&metric=ncloc)
 	
-	![image](https://user-images.githubusercontent.com/56143446/150027638-ec006e80-cec8-45f8-a4dc-a101e78486d2.png)
+Metric	Status
+lineas de codigo	![image](https://sonarcloud.io/api/project_badges/measure?project=Yennyffer_microservicio1&metric=ncloc)
+	
+	
+	
+	
+	
+	
+![image](https://user-images.githubusercontent.com/56143446/150027765-33ee6cbc-fcc0-4e00-b6ca-75a31546343e.png)
 
-	
-	
-	
-	
-	
-![image](https://user-images.githubusercontent.com/56143446/150027138-28d35fba-71d7-4228-a0e1-ec29763cb3cf.png)
 
 
