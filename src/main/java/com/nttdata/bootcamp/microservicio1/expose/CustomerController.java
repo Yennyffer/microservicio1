@@ -50,7 +50,6 @@ public class CustomerController {
     return customerService.findById(id);
   }
   
- 
   @GetMapping("/api/v1/customers-all")
   public Flux<Customer> findAll() {
     log.info("Obtener todas los clientes.");

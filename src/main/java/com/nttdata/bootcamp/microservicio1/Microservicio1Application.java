@@ -2,6 +2,7 @@ package com.nttdata.bootcamp.microservicio1;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 import org.springframework.data.mongodb.repository.config.EnableReactiveMongoRepositories;
 
 /**
@@ -13,7 +14,7 @@ import org.springframework.data.mongodb.repository.config.EnableReactiveMongoRep
  * @author Yennyffer Lizana <br/>
  * <u>Developed by</u>: <br/>
  * <ul>
- * <li>{USERNAME}. (acronym) From (EVE)</li>
+ * <li>{USERNAME}. (acronym) From (YEN)</li>
  * </ul>
  * <u>Changes</u>:<br/>
  * <ul>
@@ -21,7 +22,7 @@ import org.springframework.data.mongodb.repository.config.EnableReactiveMongoRep
  * </ul>
  * @version 1.0
  */
-//@EnableEurekaClient
+@EnableEurekaClient
 @SpringBootApplication
 @EnableReactiveMongoRepositories
 public class Microservicio1Application {
