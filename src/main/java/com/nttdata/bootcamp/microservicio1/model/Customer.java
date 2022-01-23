@@ -48,10 +48,10 @@ public class Customer {
     private Date dateBirth;
     private char gender;
     private boolean isActive;
+    private String status;
     private String numberDocumentIdentity;
     private TypeDocumentIdentity typeDocumentIdentity; 
     private CustomerType customerType;
     private HttpStatus httpStatus;
-	private String message;
 	private CustomerProfile customerProfile;
 }

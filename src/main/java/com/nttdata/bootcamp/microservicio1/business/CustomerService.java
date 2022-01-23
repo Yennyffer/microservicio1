@@ -29,14 +29,14 @@ public interface CustomerService {
     Mono<Customer> findById(String customerId);
   
     Flux<Customer> findAll();
-  
-    Mono<Customer> update(Customer customer);
+
+    Mono<Customer> update(Customer customer, String customerId);
   
     Mono<Customer> change(Customer customer);
   
     Mono<Customer> remove(String customerId);
- 
-  
+
+    Mono<Customer> findByNumberDocumentIdentity(String numberDocumentIdentity);
   }
   
 

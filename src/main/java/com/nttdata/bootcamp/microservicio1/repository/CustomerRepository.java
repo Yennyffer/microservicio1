@@ -28,5 +28,5 @@ import reactor.core.publisher.Mono;
 public interface CustomerRepository 
     extends ReactiveMongoRepository<Customer,String> {
 
-
+    Mono<Customer> findByNumberDocumentIdentity(String numberDocumentIdentity);
 }

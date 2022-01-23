@@ -50,7 +50,7 @@ public class CustomerController {
     return customerService.findById(id);
   }
   
-  @GetMapping("/api/v1/customers-all")
+  @GetMapping("/api/v1/customers/all")
   public Flux<Customer> findAll() {
     log.info("Obtener todas los clientes.");
 
@@ -64,10 +64,10 @@ public class CustomerController {
     return customerService.create(customer);
   }
 
-  @PutMapping("/api/v1/customers/")
-  public Mono<ResponseEntity<Customer>> update(@RequestBody Customer customer) {
+  @PutMapping("/api/v1/customers/{id}")
+  public Mono<ResponseEntity<Customer>> update(@PathVariable String id, @RequestBody Customer customer) {
     log.info("Actualizacion de un cliente.>");
-    return customerService.update(customer)
+    return customerService.update(customer, id)
         .flatMap(customerUpdate -> Mono.just(ResponseEntity.ok(customerUpdate)))
         .switchIfEmpty(Mono.just(ResponseEntity.notFound().build()));
   }
@@ -86,6 +86,14 @@ public class CustomerController {
     return customerService.remove(id)
         .flatMap(customer -> Mono.just(ResponseEntity.ok(customer)))
         .switchIfEmpty(Mono.just(ResponseEntity.notFound().build()));
+  }
+
+  @GetMapping("/api/v1/customers/numberDocumentIdentity/{numberDocumentIdentity}")
+  public Mono<ResponseEntity<Customer>> findOneCustomerByDni(@PathVariable String numberDocumentIdentity) {
+    return customerService.findByNumberDocumentIdentity(numberDocumentIdentity)
+            .flatMap(p -> Mono.just(ResponseEntity.ok().body(p)))
+            .switchIfEmpty(Mono.just(ResponseEntity.badRequest().build()));
+
   }
   
 }
