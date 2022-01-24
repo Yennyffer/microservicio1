@@ -1,5 +1,6 @@
 package com.nttdata.bootcamp.microservicio1.model;
 
+import java.time.LocalDate;
 import java.util.UUID;
 import java.util.Date;
 import lombok.AllArgsConstructor;
@@ -45,7 +46,7 @@ public class Customer {
     private String email;
     private Address address;
     private String telephone;
-    private Date dateBirth;
+    private LocalDate dateBirth;
     private char gender;
     private boolean isActive;
     private String status;
