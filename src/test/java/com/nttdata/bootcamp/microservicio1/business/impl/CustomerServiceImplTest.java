@@ -1,36 +1,38 @@
-package com.nttdata.bootcamp.microservicio1.expose;
+package com.nttdata.bootcamp.microservicio1.business.impl;
 
 import com.nttdata.bootcamp.microservicio1.business.CustomerService;
 import com.nttdata.bootcamp.microservicio1.model.*;
-import org.junit.jupiter.api.BeforeAll;
-import org.springframework.boot.test.autoconfigure.web.reactive.AutoConfigureWebTestClient;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
+import com.nttdata.bootcamp.microservicio1.repository.CustomerRepository;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.web.reactive.server.WebTestClient;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
+import reactor.test.StepVerifier;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-@AutoConfigureWebTestClient(timeout = "20000")
-class CustomerControllerTest {
-    @MockBean
+import static org.junit.jupiter.api.Assertions.*;
+
+@SpringBootTest
+class CustomerServiceImplTest {
+    @Autowired
     private CustomerService customerService;
-    @Autowired
-    private WebTestClient webTestClient;
-    @Autowired
-    private CustomerController customerController;
+    @MockBean
+    private CustomerRepository customerRepository;
 
     private static final Address address = new Address();
     private static final TypeDocumentIdentity typeDocumentIdentity = new TypeDocumentIdentity();
     private static final CustomerType customerType = new CustomerType();
     private static final CustomerProfile customerProfile = new CustomerProfile();
     private static final Customer mockCustomer = new Customer();
+    private static final Customer mockCustomerRemove = new Customer();
     private static final List<Customer> customerListMock = new ArrayList<>();
     private final static String id = "61d874f0dsf";
     private final static String firstName = "Jose Luis";
@@ -55,9 +57,8 @@ class CustomerControllerTest {
     private final static String customerProfileCodigo = "1";
     private final static String customerProfileDescription = "VIP";
 
-    @BeforeAll
-    static void setUp() {
-        System.out.println("Antes de la prueba");
+    @BeforeEach
+    void setUp() {
         mockCustomer.setId(id);
         mockCustomer.setFirstname(firstName);
         mockCustomer.setLastname(lastName);
@@ -88,55 +89,49 @@ class CustomerControllerTest {
     }
 
     @Test
-    void byId() {
-        System.out.println("--Metodo GET: Obtener un registro de clientes por ID--");
-        Mockito.when(customerService.findById(id)).thenReturn(Mono.just(mockCustomer));
+    void create() {
+        Mockito.when(customerRepository.findByNumberDocumentIdentity(numberDocumentIdentity))
+                .thenReturn(Mono.just(new Customer()));
+        Mockito.when(customerRepository.save(mockCustomer)).thenReturn(Mono.just(mockCustomer));
+    }
 
-        webTestClient.get().uri("/api/v1/customers/" + id)
-                .exchange()
-                .expectStatus().isOk();
+    @Test
+    void findById() {
+        Mockito.when(customerRepository.findById(id)).thenReturn(Mono.just(mockCustomer));
+        Mono<Customer> customer = customerService.findById(id);
+        StepVerifier
+                .create(customer)
+                .verifyComplete();
     }
 
     @Test
     void findAll() {
-        System.out.println("--Metodo GET: Obtener todos los registros de clientes--");
-        Mockito.when(customerService.findAll()).thenReturn(Flux.fromIterable(customerListMock));
-
-        webTestClient.get().uri("/api/v1/customers/all")
-                .exchange()
-                .expectStatus().isOk();
-    }
-
-    @Test
-    void create() {
-        System.out.println("--Metodo POST: Agregar un nuevo cliente--");
-        Mockito.when(customerService.create(mockCustomer)).thenReturn(Mono.just(mockCustomer));
+        Mockito.when(customerRepository.findAll()).thenReturn(Flux.fromIterable(customerListMock));
+        Flux<Customer> customer = customerService.findAll();
     }
 
     @Test
     void update() {
-        System.out.println("--Metodo UPDATE: Actualizar un nuevo cliente--");
-        Mockito.when(customerService.update(mockCustomer, id)).thenReturn(Mono.just(mockCustomer));
-    }
-
-
-    @Test
-    void delete() {
-        System.out.println("--Metodo DELETE: Eliminar un cliente por ID--");
-        Mockito.when(customerService.remove(id)).thenReturn(Mono.just(mockCustomer));
-
-        webTestClient.delete().uri("/api/v1/customers/" + id)
-                .exchange()
-                .expectStatus().isOk();
+        Mockito.when(customerRepository.findById(id)).thenReturn(Mono.just(mockCustomer));
+        Mockito.when(customerRepository.save(mockCustomer)).thenReturn(Mono.just(mockCustomer));
     }
 
     @Test
-    void findOneCustomerByDni() {
-        System.out.println("--Metodo GET: Obtener un cliente por DNI--");
-        Mockito.when(customerService.findByNumberDocumentIdentity(numberDocumentIdentity)).thenReturn(Mono.just(mockCustomer));
+    void remove() {
 
-        webTestClient.get().uri("/api/v1/customers/numberDocumentIdentity/" + numberDocumentIdentity)
-                .exchange()
-                .expectStatus().isOk();
+        Mockito.when(customerRepository.findById(id)).thenReturn(Mono.just(mockCustomerRemove));
+        Mockito.when(customerRepository.save(mockCustomerRemove)).thenReturn(Mono.just(mockCustomerRemove));
+        Mono<Customer> customer = customerService.remove(id);
+
+    }
+
+    @Test
+    void findByNumberDocumentIdentity() {
+        Mockito.when(customerRepository.findByNumberDocumentIdentity(numberDocumentIdentity))
+                .thenReturn(Mono.just(mockCustomer));
+        Mono<Customer> customerDtoMono = customerService.findByNumberDocumentIdentity(numberDocumentIdentity);
+        StepVerifier
+                .create(customerDtoMono)
+                .verifyComplete();
     }
 }
