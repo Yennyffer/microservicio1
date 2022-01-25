@@ -2,6 +2,7 @@ package com.nttdata.bootcamp.microservicio1.expose;
 
 import com.nttdata.bootcamp.microservicio1.business.CustomerService;
 import com.nttdata.bootcamp.microservicio1.model.*;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.BeforeAll;
 import org.springframework.boot.test.autoconfigure.web.reactive.AutoConfigureWebTestClient;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -16,6 +17,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+@Slf4j
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @AutoConfigureWebTestClient(timeout = "20000")
 class CustomerControllerTest {
@@ -57,7 +59,7 @@ class CustomerControllerTest {
 
     @BeforeAll
     static void setUp() {
-        System.out.println("Antes de la prueba");
+        log.info("Antes de la prueba");
         mockCustomer.setId(id);
         mockCustomer.setFirstname(firstName);
         mockCustomer.setLastname(lastName);
@@ -89,7 +91,7 @@ class CustomerControllerTest {
 
     @Test
     void byId() {
-        System.out.println("--Metodo GET: Obtener un registro de clientes por ID--");
+        log.info("--Metodo GET: Obtener un registro de clientes por ID--");
         Mockito.when(customerService.findById(id)).thenReturn(Mono.just(mockCustomer));
 
         webTestClient.get().uri("/api/v1/customers/" + id)
@@ -99,30 +101,33 @@ class CustomerControllerTest {
 
     @Test
     void findAll() {
-        System.out.println("--Metodo GET: Obtener todos los registros de clientes--");
+        log.info("--Metodo GET: Obtener todos los registros de clientes--");
         Mockito.when(customerService.findAll()).thenReturn(Flux.fromIterable(customerListMock));
 
-        webTestClient.get().uri("/api/v1/customers/all")
+        Flux<Customer> c =
+                webTestClient.get().uri("/api/v1/customers/all")
                 .exchange()
-                .expectStatus().isOk();
+                .expectStatus().isOk()
+                .returnResult(Customer.class)
+                .getResponseBody();
     }
 
     @Test
     void create() {
-        System.out.println("--Metodo POST: Agregar un nuevo cliente--");
+        log.info("--Metodo POST: Agregar un nuevo cliente--");
         Mockito.when(customerService.create(mockCustomer)).thenReturn(Mono.just(mockCustomer));
     }
 
     @Test
     void update() {
-        System.out.println("--Metodo UPDATE: Actualizar un nuevo cliente--");
+        log.info("--Metodo UPDATE: Actualizar un nuevo cliente--");
         Mockito.when(customerService.update(mockCustomer, id)).thenReturn(Mono.just(mockCustomer));
     }
 
 
     @Test
     void delete() {
-        System.out.println("--Metodo DELETE: Eliminar un cliente por ID--");
+        log.info("--Metodo DELETE: Eliminar un cliente por ID--");
         Mockito.when(customerService.remove(id)).thenReturn(Mono.just(mockCustomer));
 
         webTestClient.delete().uri("/api/v1/customers/" + id)
@@ -132,7 +137,7 @@ class CustomerControllerTest {
 
     @Test
     void findOneCustomerByDni() {
-        System.out.println("--Metodo GET: Obtener un cliente por DNI--");
+        log.info("--Metodo GET: Obtener un cliente por DNI--");
         Mockito.when(customerService.findByNumberDocumentIdentity(numberDocumentIdentity)).thenReturn(Mono.just(mockCustomer));
 
         webTestClient.get().uri("/api/v1/customers/numberDocumentIdentity/" + numberDocumentIdentity)
