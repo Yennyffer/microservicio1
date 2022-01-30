@@ -31,5 +31,5 @@ public class CustomerProfile {
 	
 	private String codigo;
     private String description;	
-    private boolean status;
+    private String status;
 }

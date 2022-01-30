@@ -2,10 +2,12 @@ package com.nttdata.bootcamp.microservicio1.expose;
 
 import com.nttdata.bootcamp.microservicio1.model.Customer;
 import com.nttdata.bootcamp.microservicio1.business.CustomerService;
+import com.nttdata.bootcamp.microservicio1.model.dto.CustomerKafka;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -42,6 +44,16 @@ public class CustomerController {
 
   @Autowired
   private CustomerService customerService;
+  @Autowired
+  private KafkaTemplate<String, CustomerKafka> kafkaTemplate;
+  private static final String TOPIC = "Kafka01";
+
+  @GetMapping("/api/v1/customers/public/{numberDocumentIdentity}")
+  public String post (@PathVariable("numberDocumentIdentity") final String numberDocumentIdentity) {
+    log.info("Envio de mensajes kafka");
+    kafkaTemplate.send(TOPIC, new CustomerKafka(numberDocumentIdentity,"b0175f31-a709-437f-8d9b-96a5e10dd6cb","nombre"));
+    return "Published successfully";
+  }
 
 
   @GetMapping("/api/v1/customers/{id}")

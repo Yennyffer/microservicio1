@@ -3,6 +3,7 @@ package com.nttdata.bootcamp.microservicio1.expose;
 import com.nttdata.bootcamp.microservicio1.business.CustomerService;
 import com.nttdata.bootcamp.microservicio1.model.*;
 import lombok.extern.slf4j.Slf4j;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.springframework.boot.test.autoconfigure.web.reactive.AutoConfigureWebTestClient;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -116,12 +117,14 @@ class CustomerControllerTest {
     void create() {
         log.info("--Metodo POST: Agregar un nuevo cliente--");
         Mockito.when(customerService.create(mockCustomer)).thenReturn(Mono.just(mockCustomer));
+        Assertions.assertNotNull(customerController.create(mockCustomer));
     }
 
     @Test
     void update() {
         log.info("--Metodo UPDATE: Actualizar un nuevo cliente--");
         Mockito.when(customerService.update(mockCustomer, id)).thenReturn(Mono.just(mockCustomer));
+        Assertions.assertNotNull(customerController.update(id, mockCustomer));
     }
 
 
@@ -132,7 +135,7 @@ class CustomerControllerTest {
 
         webTestClient.delete().uri("/api/v1/customers/" + id)
                 .exchange()
-                .expectStatus().isOk();
+                .expectStatus().isAccepted();
     }
 
     @Test
